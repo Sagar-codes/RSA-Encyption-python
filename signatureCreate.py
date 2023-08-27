@@ -1,0 +1,19 @@
+import rsa
+
+public_key, private_key = rsa.newkeys(1024) # 1024 bytes
+
+#Creating public Key
+with open('keys/public.pem', 'wb') as f:
+    f.write(public_key.save_pkcs1("PEM"))
+
+# Creating Private Key
+with open('keys/private.pem', 'wb') as f:
+    f.write(private_key.save_pkcs1("PEM"))
+
+message = "I have a demat account where i put all my Bitcoins and the address is @madeupname19980803"
+
+signature = rsa.sign(message.encode(), private_key, "SHA-256")
+print(signature)
+
+with open('signature', "wb") as f:
+    f.write(signature)
